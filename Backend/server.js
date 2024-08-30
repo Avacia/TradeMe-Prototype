@@ -11,12 +11,19 @@ app.use(express.json())
 
 
 /* ======================== Routes Import ========================= */
-const updateBidRouter = require("./routes/updateBidRoutes")
+const updateFurniture = require("./routes/furnitureRoutes")
+const updateHomeAppliance = require("./routes/homeApplianceRoutes")
+const updateMachine = require("./routes/machineRoutes")
+const updateSportAppliance = require("./routes/sportApplianceRoutes")
+const updateUser = require("./routes/userRoutes")
 
 
 /* ======================== Routes ================================ */
-app.use(updateBidRouter)
-
+app.use(updateFurniture)
+app.use(updateHomeAppliance)
+app.use(updateMachine)
+app.use(updateSportAppliance)
+app.use(updateUser)
 
 /* ======================== Default Root ========================== */
 app.get("/", (req, res) => {
