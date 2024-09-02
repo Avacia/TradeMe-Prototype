@@ -1,6 +1,6 @@
 FROM node:22-apline
 
-WORKDIR /Frontend
+WORKDIR /frontend
 
 COPY package.json .
 
