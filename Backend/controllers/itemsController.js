@@ -8,34 +8,33 @@ connectToDb((err) => {
     }
 })
 
-module.exports.updateHomeAppliance = async (req, res) => {
-    const appliance = req.body
-    
+module.exports.updateItem = async (req, res) => {
+    const item = req.body
+
     try{
-        db.collection("home appliance")
-            .insertOne(appliance)
-            .then(result => {
+        db.collection("items")
+            .insertOne(item)
+            .then(result =>{
                 res.status(201).json(result)
             })
-            .catch(error){
+            .catch((error) => {
                 res.status(500).json({error: "Could not create new profile or update current profile"})
-            }
+            })
     }
     catch(error){
         res.status(500).json({error: "Unable to connect database"})
     }
-    
 }
 
-module.exports.getHomeAppliance = async (req, res) => {
-    let homeApplianceArray = []
+module.exports.getItem = async (req, res) => {
+    let itemArray = []
 
     try{
-        db.collection("home appliance")
+        db.collection("items")
             .find()
-            .forEach((appliance) => homeApplianceArray.push(appliance))
+            .forEach((item) => itemArray.push(item))
             .then(() =>{
-                res.status(200).json(homeApplianceArray)
+                res.status(200).json(itemArray)
             })
     }
     catch(error){

@@ -1,10 +1,3 @@
-.bidContainer{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    gap:1vw;
-}
-
 .CardInfo{
     width:16vw;
     height:40vh;
@@ -55,4 +48,21 @@
         transform: scale(1.1);
         transition: all 0.5s ease-in-out;
     }
+}
+
+
+.deleteBtn{
+    background-color: transparent;
+    border:none;
+    font-size: 1rem;
+    &:hover{
+        transform:scale(1.1);
+        transition: 0.5s ease-in-out;
+        
+    }
+}
+
+
+.icon{
+    color:red;
 }

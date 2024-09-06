@@ -1,12 +1,13 @@
 import { useQuery } from 'react-query'
-import Card from '../common/card'
+import Card from '../card/card'
 
 
-export default function machine(){
-   const { data, status } = useQuery("machine", getMachine)
 
-   async function getMachine(){
-        const res = await fetch('http://localhost:4000/getMachine')
+export default function item(){
+   const { data, status } = useQuery("item", getItem)
+
+   async function getItem(){
+        const res = await fetch('http://localhost:4000/getItems')
         return res.json()
    }
 

@@ -1,4 +1,7 @@
 .cardContainer{
+    width:100vw;
+    height:auto;
+    overflow-y: scroll;
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -8,7 +11,8 @@
 
 
 .bidContainer{
-    width:auto;
+    width:90vw;
+    height:50vh;
     border: 2px solid black;
     display:flex;
     flex-direction: column;
@@ -45,7 +49,6 @@
 
 
 .CardImage{
-    position: inherit;
     width:100%;
     height:60%;
     border-radius: 3%;
@@ -72,8 +75,29 @@
 }
 
 
-.droppedItemList{
+.droppedItemInfo{
     display:flex;
-    justify-content: center;
     align-items: center;
+    gap:3vw;
+}
+
+
+.droppedItemDeleteBtn{
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    &:hover{
+        color:white;
+        background-color: red;
+        padding: 0.1vh 1vw;
+        transform: scale(1);
+        transition: 0.5s ease-in-out
+    }
+}
+
+
+.reorderContainer{
+    list-style:none;
+    display:flex;
+    gap:1vw;
 }

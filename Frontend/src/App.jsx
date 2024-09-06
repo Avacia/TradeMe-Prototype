@@ -1,11 +1,11 @@
 import './App.css'
+import Item from "./components/item/item"
+
 
 function App() {
   
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
+    <Item />
   )
 }
 

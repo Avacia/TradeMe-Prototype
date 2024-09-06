@@ -17,7 +17,7 @@ module.exports.updateUser = async (req, res) => {
             .then(result => {
                 res.status(201).json(result)
             })
-            .catch(error => {
+            .catch((error) => {
                 res.status(500).json({error: "Could not create new user or update current user"})
             })
     }
