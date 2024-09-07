@@ -1,7 +1,7 @@
 import style from './cardMapping.module.css'
 import CardInfo from './cardInfo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft, faChevronRight, faCloudUpload } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
 
@@ -13,52 +13,59 @@ export default function CardMapping({arrayName, needArrow, needBtn, handleClick,
     const [slideArray, setSlideArray] = useState(initialSlide)
 
 
-    function goToPrevious(){
-        if(currentIndexPosition === 0){
-            setSlideArray(arrayName.slice(arrayPosition - currentIndexPosition)
-                .concat(arrayName.slice(currentIndexPosition, currentIndexPosition + slideMostRightPosition)))
-            setCurrentIndexPosition(arrayPosition)
-        }
-        else if(currentIndexPosition + slideMostRightPosition > arrayPosition){
-            setSlideArray(arrayName.slice(currentIndexPosition - 1, arrayPosition + 1)
-                .concat(arrayName.slice(0, slideMostRightPosition - (arrayPosition - (currentIndexPosition - 1)))))
-            setCurrentIndexPosition(currentIndexPosition - 1)
-        }
-        else{
-            setSlideArray(arrayName.slice(currentIndexPosition, currentIndexPosition + slideMostRightPosition + 1))
-            setCurrentIndexPosition(currentIndexPosition - 1)
+    function calculateSlide(startIndex) {
+        let endIndex = startIndex + slideMostRightPosition + 1;
+        
+        if (endIndex <= arrayPosition + 1) {
+            // Normal slice if within bounds
+            return arrayName.slice(startIndex, endIndex);
+        } else {
+            // Handle circular movement
+            const overflow = endIndex - (arrayPosition + 1);
+            return arrayName.slice(startIndex, arrayPosition + 1).concat(arrayName.slice(0, overflow));
         }
     }
-
-    function goToNext(){
-        if(currentIndexPosition + slideMostRightPosition === arrayPosition){
-            setSlideArray(arrayName.slice(currentIndexPosition + 1, arrayPosition + 1)
-                .concat(arrayName.slice(0, slideMostRightPosition - 3)))
-            setCurrentIndexPosition(currentIndexPosition + 1)
-        }
-        else if(currentIndexPosition + slideMostRightPosition > arrayPosition){
-            setSlideArray(arrayName.slice(currentIndexPosition + 1, arrayPosition + 1)
-                .concat(arrayName.slice(0, slideMostRightPosition - (arrayPosition - (currentIndexPosition + 1)))))
-            setCurrentIndexPosition(currentIndexPosition === arrayPosition ? 0 : currentIndexPosition + 1)
-        }
-        else{
-            setSlideArray(arrayName.slice(currentIndexPosition, currentIndexPosition + slideMostRightPosition + 1))
-            setCurrentIndexPosition(currentIndexPosition + 1)
-        }
+    
+    function goToPrevious() {
+        const newIndex = (currentIndexPosition === 0) ? arrayPosition : currentIndexPosition - 1;
+        setCurrentIndexPosition(newIndex);
+        setSlideArray(calculateSlide(newIndex));
+    }
+    
+    function goToNext() {
+        const newIndex = (currentIndexPosition + 1) % (arrayPosition + 1); // Use modulo for circular movement
+        setCurrentIndexPosition(newIndex);
+        setSlideArray(calculateSlide(newIndex));
     }
 
     return(
         <div className="bidContainer">
             <div className={style.container}>
-                {console.log("All content: ", arrayName, needArrow, needBtn, needDelete)}
                 {needArrow && <div className={style.arrow} onClick={goToPrevious}>
                     <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
                 </div>}
-                {
+
+                {needArrow &&
                     slideArray.map((item, index) =>(
                         <div key={item._id || index}>
                             <CardInfo 
                                 arrayName={slideArray} 
+                                item={item} 
+                                index={item._id || index} 
+                                needBtn={needBtn} 
+                                handleClick={handleClick} 
+                                handleOnDrag={handleOnDrag} 
+                                needDelete={needDelete} 
+                                handleDelete={handleDelete}
+                            />
+                        </div>
+                    ))
+                }
+                {needArrow === false && 
+                    arrayName.map((item, index) =>(
+                        <div key={item._id || index}>
+                            <CardInfo 
+                                arrayName={arrayName} 
                                 item={item} 
                                 index={item._id || index} 
                                 needBtn={needBtn} 

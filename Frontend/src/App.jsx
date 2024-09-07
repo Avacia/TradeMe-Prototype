@@ -1,11 +1,15 @@
 import './App.css'
 import Item from "./components/item/item"
+import HeadBar from "./components/common/headBar"
 
 
 function App() {
   
   return (
-    <Item />
+    <div>
+        <Item />
+    </div>
+
   )
 }
 

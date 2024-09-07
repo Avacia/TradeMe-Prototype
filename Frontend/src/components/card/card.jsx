@@ -3,6 +3,7 @@ import CardMapping from './cardMapping.jsx'
 import Swal from 'sweetalert2'
 import { useState } from 'react'
 
+
 export default function card(item){
     const [placedBid, setPlacedBid] = useState([])    
     const [draggedItem, setDraggedItem] = useState([])
@@ -36,17 +37,17 @@ export default function card(item){
                 }
                 else{
                     Swal.fire({
-                        title: "Failed",
-                        text: "The bid has already been placed",
-                        icon: "error"
-                    });
+                        title: "Error",
+                        text: "This bid has already been placed.",
+                        icon: "error",
+                    })
                 } 
             }
           });
     }
 
     function checkIsInContainItem(arrayName, item){
-        return arrayName.includes(item)
+        return arrayName.some((arrayItem) => arrayItem._id === item._id)
     }
 
     function handleOnDrag(e, item){
@@ -57,8 +58,10 @@ export default function card(item){
     function handleOnDrop(e){
         e.preventDefault()
         e.dataTransfer.dropEffect="move"
-        if(!checkIsInContainItem(draggedItem, dragContent))
-        setDraggedItem(prevDraggedItem => [...prevDraggedItem, dragContent])
+        if(!checkIsInContainItem(draggedItem, dragContent)){
+            setDraggedItem(prevDraggedItem => [...prevDraggedItem, dragContent])
+        }
+        
     }
 
     function handDragOver(e){
@@ -81,10 +84,10 @@ export default function card(item){
           }).then((result) => {
             if (result.isConfirmed) {
                 if(arrayName === placedBid){
-                    setPlacedBid(prevBids => prevBids.filter(bid => bid !== item))
+                    setPlacedBid(prevBids => prevBids.filter(bid => bid._id !== item._id))
                 }
                 else{
-                    setDraggedItem(prevBids => prevBids.filter(bid => bid !== item))
+                    setDraggedItem(prevBids => prevBids.filter(bid => bid._id !== item._id))
                 }
                 Swal.fire({
                     title: "Success",
@@ -116,7 +119,7 @@ export default function card(item){
                 <h3>Your Placed Bid</h3>
                 <CardMapping 
                     arrayName={placedBid} 
-                    needArrow={false}
+                    needArrow={true}
                     needBtn={false} 
                     handleClick={handleClick} 
                     handleOnDrag={handleOnDrag} 
@@ -136,11 +139,12 @@ export default function card(item){
             </div>
 
             <div className={style.filter}>
-                <select onClick={filterItem} 
-                        onChange={(e) => setSelectedItem(defaultArray?.filter((searchType) => searchType.type === e.target.value))}>
+                <select onChange={(e) => {const selected = defaultArray?.filter((searchType) => searchType.type === e.target.value)
+                        setSelectedItem(selected)}}
+                        onClick={filterItem}>
                     {console.log("On Change:", selectedItem)}
                     <option>Choose An Category</option>
-                    {filteredTypeArray ? 
+                    {filteredTypeArray && 
                         filteredTypeArray.map((type, index) => {
                             return(
                                 <option key={index} value={type}>
@@ -148,10 +152,10 @@ export default function card(item){
                                 </option>
                             )
                         })
-                    : null}
+                    }
                 </select>
                 <div className={style.displayFilterItem}>
-                    {selectedItem ? 
+                    {selectedItem &&
                         <CardMapping 
                             arrayName={selectedItem}  
                             needArrow={false}
@@ -160,7 +164,7 @@ export default function card(item){
                             handleOnDrag={handleOnDrag} 
                             needDelete={false} 
                             handleDelete={null}/>
-                    : null}
+                    }
                 </div>
             </div>
 

@@ -6,6 +6,7 @@ import Card from '../card/card'
 export default function item(){
    const { data, status } = useQuery("item", getItem)
 
+
    async function getItem(){
         const res = await fetch('http://localhost:4000/getItems')
         return res.json()

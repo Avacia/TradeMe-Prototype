@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const machineController = require("../controllers/itemsController")
+const itemsController = require("../controllers/itemsController")
 
-router.post("/updateItems", machineController.updateItem)
-router.get("/getItems", machineController.getItem)
+router.post("/updateItems", itemsController.updateItem)
+router.get("/getItems", itemsController.getItem)
 
 module.exports = router
