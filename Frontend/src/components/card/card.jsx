@@ -1,7 +1,8 @@
 import style from './card.module.css'
 import CardMapping from './cardMapping.jsx'
 import Swal from 'sweetalert2'
-import { useState } from 'react'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 
 
 export default function card(item){
@@ -29,6 +30,7 @@ export default function card(item){
             if (result.isConfirmed) {
                 if(!checkIsInContainItem(placedBid, item)){
                     setPlacedBid(prevBids => [...prevBids, item])
+                    handleSubmit(item)
                     Swal.fire({
                         title: "Success",
                         text: "Your have placed your bid.",
@@ -113,6 +115,34 @@ export default function card(item){
         console.log("filtered Type:", filteredTypeArray)
     }
 
+    function handleSubmit(item){
+
+        const postData = {
+            "item": item
+        }
+
+        console.log("Data being sent: ", postData)
+
+        axios.post("http://localhost:4000/updateItems", postData)
+            .then((res) => {
+                console.log(res.data, placedBid)
+            })
+            .catch((error) => {
+                console.log(error.response.data)
+            })
+    }
+
+    useEffect(() => {
+        axios.get("http://localhost:4000/getItems")
+            .then((response) => {
+                const items = response.data
+                setPlacedBid(items.filter(item => item.bid_placed === true))
+            })
+            .catch(error => {
+                console.error("Error fetching items: ", error)
+            })
+    }, [])
+
     return(
         <div className={style.cardContainer}>
             {placedBid.length > 0 && <div className={style.bidContainer}>
@@ -123,8 +153,8 @@ export default function card(item){
                     needBtn={false} 
                     handleClick={handleClick} 
                     handleOnDrag={handleOnDrag} 
-                    needDelete={true} 
-                    handleDelete={handleDelete}/> 
+                    needDelete={false} 
+                    handleDelete={null}/> 
             </div>}
 
             <div className={style.Card}>
@@ -179,7 +209,7 @@ export default function card(item){
                     <CardMapping 
                         arrayName={draggedItem} 
                         needArrow={false}
-                        needBtn={false} 
+                        needBtn={true} 
                         handleClick={handleClick} 
                         handleOnDrag={handleOnDrag} 
                         needDelete={true} 
