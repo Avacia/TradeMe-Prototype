@@ -19,6 +19,50 @@ Mission 5 is a web application designed to remake the TradeMe website. This proj
 - **Environment Variables**: Sensitive information such as the MongoDB connection string and collection names are stored in a `.env` file.
 - **Routing**: Routes direct requests based on the HTTP method (GET or POST). The POST method checks for existing bids and overrides previous bids if necessary.
 
+## Environment Variables
+To run this project, you will need to create a `.env` file in the root directory of the backend. Here’s an example of what your `.env` file should look like:
+- `DATABASE_URI`: The connection string for your MongoDB database.
+- `DATABASE_NAME`: The database name for MongoDB.
+- `COLLECTION_NAME`: The collection name that you are using for MongoDB.
+
+Make sure to keep your `.env` file private and do not share it publicly!
+
+##CLI
+This Python application allows you to create auction items and store them in a MongoDB database. It utilizes command-line arguments to gather item details and inserts the data into a specified MongoDB collection.
+   
+   ## Features
+   - Create an auction item with details such as title, description, initial price, reserve price, and type.
+   - Store the created auction item in a MongoDB database.
+     
+   ## Requirements
+   Before running the application, ensure you have the following:
+      - Python 3.x
+      - MongoDB instance (local or cloud)
+      - Required Python packages(requirement.txt)
+
+   ### Dependencies
+   You will need the following Python packages:
+   - `pymongo` for MongoDB interaction
+   - `python-dotenv` for loading environment variables
+
+   You can install the dependencies using pip:
+   ```bash
+   pip install pymongo python-dotenv
+   ```
+
+   ## Usage
+   To use the application, run the following command in your terminal, providing the required arguments:
+   ```bash
+   python create_auction_item.py --title "<item_title>" --description "<item_description>" --initial_price <initial_price> --reserve_price <reserve_price> --type "<item_type>"
+   ```
+
+   ## How It Works
+   1. The application loads environment variables from the `.env` file.
+   2. It connects to the specified MongoDB database using the `MONGODB_URI`.
+   3. The user provides the auction item details via command-line arguments.
+   4. The application creates a new item and stores it in the specified MongoDB collection.
+
+
 ## Getting Started
 
 To run this project locally, follow these steps:
