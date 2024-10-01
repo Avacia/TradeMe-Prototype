@@ -27,14 +27,14 @@ To run this project, you will need to create a `.env` file in the root directory
 
 Make sure to keep your `.env` file private and do not share it publicly!
 
-### CLI
+## CLI
 This Python application allows you to create auction items and store them in a MongoDB database. It utilizes command-line arguments to gather item details and inserts the data into a specified MongoDB collection.
    
-   ## Features
+   ### Features
    - Create an auction item with details such as title, description, initial price, reserve price, and type.
    - Store the created auction item in a MongoDB database.
      
-   ## Requirements
+   ### Requirements
    Before running the application, ensure you have the following:
       - Python 3.x
       - MongoDB instance (local or cloud)
@@ -50,13 +50,13 @@ This Python application allows you to create auction items and store them in a M
    pip install pymongo python-dotenv
    ```
 
-   ## Usage
+   ### Usage
    To use the application, run the following command in your terminal, providing the required arguments:
    ```bash
    python create_auction_item.py --title "<item_title>" --description "<item_description>" --initial_price <initial_price> --reserve_price <reserve_price> --type "<item_type>"
    ```
 
-   ## How It Works
+   ### How It Works
    1. The application loads environment variables from the `.env` file.
    2. It connects to the specified MongoDB database using the `MONGODB_URI`.
    3. The user provides the auction item details via command-line arguments.
