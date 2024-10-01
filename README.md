@@ -19,7 +19,7 @@ Mission 5 is a web application designed to remake the TradeMe website. This proj
 - **Environment Variables**: Sensitive information such as the MongoDB connection string and collection names are stored in a `.env` file.
 - **Routing**: Routes direct requests based on the HTTP method (GET or POST). The POST method checks for existing bids and overrides previous bids if necessary.
 
-## Environment Variables
+### Environment Variables
 To run this project, you will need to create a `.env` file in the root directory of the backend. Here’s an example of what your `.env` file should look like:
 - `DATABASE_URI`: The connection string for your MongoDB database.
 - `DATABASE_NAME`: The database name for MongoDB.
@@ -27,7 +27,7 @@ To run this project, you will need to create a `.env` file in the root directory
 
 Make sure to keep your `.env` file private and do not share it publicly!
 
-##CLI
+### CLI
 This Python application allows you to create auction items and store them in a MongoDB database. It utilizes command-line arguments to gather item details and inserts the data into a specified MongoDB collection.
    
    ## Features
