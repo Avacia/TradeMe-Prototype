@@ -67,7 +67,7 @@ python create_auction_item.py --title "<item_title>" --description "<item_descri
 
 
 ## Project Structure
-
+```bash
 Mission5/
    ├── backend/
    │      ├── controllers/
@@ -81,7 +81,7 @@ Mission5/
        │   ├── App.js
        │   └── index.js
        └── public/
-
+```
 
 ## License
 This project is licensed under the MIT License.
