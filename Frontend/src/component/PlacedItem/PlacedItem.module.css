@@ -1,51 +1,74 @@
-.CardInfo{
-    width: 100%;
-    height:40vh;
+.CardInfo {
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    display: inline-block;
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-right: 1rem;
+    width: 300px;
+    height: 200px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.card h1 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.card p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.itemContainer {
+    display: flex;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+.navBtn {
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
-    gap:2vw;
-    border: 1px solid black;
-    box-shadow: inset 0 1px 5px 1px;
-    margin-bottom: 3vh;
-}
-
-.container{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    gap:1vh;
-    padding-left: 5vw;
-    padding-bottom: 16vh;
-    margin-right: 5vw;
-}
-
-
-.navigation{
-    display: flex;
-    gap:2vw;
-}
-
-
-.navBtn{
-    background-color: transparent;
-    border: transparent;
-}
-
-
-.container > h1 {
-    font-size: 1.3rem;
-}
-
-
-.card{
-    width:20vw;
-    height:30vh;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-    gap:2vh;
-    border: 1px solid black;
-    border-radius: 15px;
-    box-shadow: inset 0 1px 1px 1px;
-    padding-left: 2vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 10px;
+}
+
+.navBtn:hover {
+    background: #0052a3;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.navBtn:active {
+    transform: scale(0.95);
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
 }

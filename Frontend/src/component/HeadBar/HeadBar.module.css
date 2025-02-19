@@ -1,33 +1,30 @@
-.headBarContainer{
-    width:100%;
-    height:10vh;
-    display:flex;
+.headBarContainer {
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.5rem 2rem;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-
-.leftSection{
-    position:relative;
-    width:60%;
-    display: flex;
-    gap:3vw;
-    padding-left: 6vw;
-}
-
-
-.leftSection > p {
+.leftSection, .rightSection {
     display: flex;
     align-items: center;
-    gap:0.5vw;
+    gap: 2rem;
 }
 
-
-.rightSection{
+.rightSection p {
     display: flex;
-    gap:1.5vw;
+    gap: 0.3rem;
+    cursor: pointer;
+    transition: color 0.3s;
 }
 
-.rightSection > p {
-    display: flex;
-    gap:0.5vw;
+.rightSection svg {
+    font-size: 1.2rem;
+}
+
+.rightSection p:hover {
+    color: #0066cc;
 }

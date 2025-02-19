@@ -15,7 +15,7 @@ export default function HeadBar(){
             </div>
             <div className={style.rightSection}>
                 <p><FontAwesomeIcon icon={faCartShopping} />Watch list</p>
-                <p><FontAwesomeIcon icon={faHeart} />Favourites</p>
+                <p><FontAwesomeIcon icon={faHeart} />Favorite</p>
                 <p><FontAwesomeIcon icon={faPen} />Start a listing</p>
                 <p><FontAwesomeIcon icon={faUser} />My Trade Me</p>
             </div>

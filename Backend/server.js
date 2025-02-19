@@ -14,6 +14,6 @@ app.get("/", (req, res) => {
     res.send("Server is Connected!!")
 })
 
-app.listen(process.env.PORT || 6000, () => {
-    console.log(`Server is running on port http://localhost:${process.env.PORT || 6000}`)
+app.listen(process.env.PORT || 4000, () => {
+    console.log(`Server is running on port http://localhost:${process.env.PORT || 4000}`)
 })

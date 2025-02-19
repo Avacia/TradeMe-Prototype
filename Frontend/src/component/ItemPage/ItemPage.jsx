@@ -2,13 +2,22 @@ import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import style from './ItemPage.module.css'
+import { toast } from 'react-hot-toast'
 
 export default function dataPage(){
     const {data, isLoading, error } = useQuery("data", getData)
     const { id } = useParams()
     const user = "Admin"
     const [currentPrice, setCurrentPrice] = useState(0)
+    const [initialPrice, setInitialPrice] = useState(0)
     const [isClicked, setIsClicked] = useState(false)
+
+    useEffect(() => {
+        if(data) {
+            setInitialPrice(data.price)
+            setCurrentPrice(data.price)
+        }
+    }, [data])
 
     function handleAddAmount(){
         setCurrentPrice(currentPrice + 1)

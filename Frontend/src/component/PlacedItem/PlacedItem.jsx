@@ -9,24 +9,15 @@ export default function PlacedItem(){
     const [bidList, setBidList] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
     const itemsPerPage = 3
+
     const {data, isLoading, error} = useQuery("PlacedBid", getPlacedBid)
 
     async function getPlacedBid(){
         const res = await fetch("http://localhost:4000/getItem")
-
         if(!res.ok){
             throw new Error("Network response is not ok")
         }
-
         return res.json()
-    }
-
-    if(isLoading){
-        return(<p>Loading ...</p>)
-    }
-
-    if(error){
-        return(<p>Error!! {error}</p>)
     }
 
     useEffect(() => {
@@ -37,6 +28,9 @@ export default function PlacedItem(){
         }
     }, [data])
 
+    if(isLoading) return <p>Loading ...</p>
+    if(error) return <p>Error!! {error}</p>
+
     function handleNext(){
         setCurrentIndex((prevIndex) => (prevIndex + itemsPerPage >= bidList.length) ? 0 : prevIndex + itemsPerPage)
     }
@@ -45,7 +39,6 @@ export default function PlacedItem(){
         setCurrentIndex((prevIndex) => 
             (prevIndex === 0) ? Math.max(0, bidList.length - itemsPerPage) : Math.max(0, prevIndex - itemsPerPage))
     }
-
 
     return(
         <div className={style.CardInfo}>
