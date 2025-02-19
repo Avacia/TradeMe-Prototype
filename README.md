@@ -44,12 +44,16 @@ Mission 5 is a web application designed to remake the TradeMe website, addressin
 4. Start the development servers:
    
    # Backend
+   ```bash
    cd backend && npm run dev
-   # Frontend
-   cd frontend && npm start
+   ```
    
+   # Frontend
+   ```bash
+   cd frontend && npm start
+   ```
 
-5. Access the application at `http://localhost:3000`
+6. Access the application at `http://localhost:3000`
 
 ## Environment Variables
 Required in `.env` file:
@@ -65,18 +69,18 @@ python create_auction_item.py --title "<item_title>" --description "<item_descri
 ## Project Structure
 
 Mission5/
-├── backend/
-│   ├── controllers/
-│   ├── routes/
-│   ├── db/
-│   ├── server.js
-│   └── .env
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   ├── App.js
-    │   └── index.js
-    └── public/
+   ├── backend/
+   │      ├── controllers/
+   │      ├── routes/
+   │      ├── db/
+   │      ├── server.js
+   │      └── .env
+   └── frontend/
+       ├── src/
+       │   ├── components/
+       │   ├── App.js
+       │   └── index.js
+       └── public/
 
 
 ## License
