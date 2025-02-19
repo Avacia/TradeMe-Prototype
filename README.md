@@ -70,11 +70,11 @@ python create_auction_item.py --title "<item_title>" --description "<item_descri
 ```bash
 Mission5/
    ├── backend/
-   │      ├── controllers/
-   │      ├── routes/
-   │      ├── db/
-   │      ├── server.js
-   │      └── .env
+   │   ├── controllers/
+   │   ├── routes/
+   │   ├── db/
+   │   ├── server.js
+   │   └── .env
    └── frontend/
        ├── src/
        │   ├── components/
