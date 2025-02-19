@@ -26,16 +26,17 @@ Mission 5 is a web application designed to remake the TradeMe website, addressin
 ## Getting Started
 
 1. Clone the repository:
-   
+   ```bash
    git clone https://github.com/Avacia/Mission5.git
    cd Mission5
+   ```
    
 
 2. Install dependencies:
-   
+   ```bash
    cd backend && npm install
    cd ../frontend && npm install
-   
+   ```
 
 3. Set up environment variables:
    Create a `.env` file in the backend folder with necessary configurations.
