@@ -1,55 +1,182 @@
-.CardInfo {
-    display: inline-block;
+.container {
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+}
+
+.itemCard {
     background: white;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-right: 1rem;
-    width: 300px;
-    height: 200px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.CardInfo h1 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
 }
 
-.CardInfo p {
-    margin: 0.5rem 0;
+.header h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.itemId {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.mainInfo {
+    margin-bottom: 2rem;
+}
+
+.priceSection {
+    margin-bottom: 1.5rem;
+}
+
+.priceSection h2 {
+    color: #0066cc;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.type {
+    color: #666;
     font-size: 1rem;
 }
 
-.info {
-    margin-top: 1rem;
+.description {
+    background: #f8f8f8;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
 }
 
-.btnContainer {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
+.description h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
 }
 
-.btnContainer button {
-    background: #0066cc;
-    color: white;
+.toggleBtn {
+    background: none;
     border: none;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
+    color: #0066cc;
     cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btnContainer button:hover {
-    background: #0052a3;
+    padding: 0;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
 }
 
 .open {
     display: block;
-    margin-top: 1rem;
+    line-height: 1.6;
+    color: #444;
 }
 
 .close {
     display: none;
+}
+
+.bidSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bidControls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.bidControls button {
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.bidControls button:hover {
+    background: #0052a3;
+}
+
+.bidAmount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    min-width: 100px;
+    text-align: center;
+}
+
+.placeBidBtn {
+    background: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.placeBidBtn:hover {
+    background: #16a34a;
+}
+
+.loading, .error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.error {
+    color: #dc2626;
+}
+
+.toastContainer {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.toastButtons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.confirmBtn {
+    background: #22c55e;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancelBtn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
 }

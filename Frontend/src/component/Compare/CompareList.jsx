@@ -10,32 +10,30 @@ export default function CompareList(){
 
     return(
         <div className={style.compareContainer}>
-            {
-                compareList.length > 0 ? (
-                    <Reorder.Group values={draggableItem} onReorder={setDraggableItem}>
-                        {
-                            draggableItem.map((item) => {
-                                return(
-                                    <Reorder.Item value={item} key={item._id}>
-                                        <div className={style.itemCard}>
-                                            <NavLink to={`/ItemPage/${item._id}`}>
-                                                <p>Item Info: {item.name}</p>
-                                            </NavLink>
-                                            <div>
-                                                <p>Item Id: {item._id}</p>
-                                                <p>Item Price: {item.price}</p>
-                                                <p>Item Type: {item.type}</p>
-                                            </div>
-                                        </div>
-                                    </Reorder.Item>
-                                )
-                            })
-                        }
-                    </Reorder.Group>
-                ) : (
-                    <p className={style.compareNothing}>No items to compare</p>
-                )
-            }
+            {compareList.length > 0 ? (
+                <Reorder.Group 
+                    axis="y"
+                    values={draggableItem} 
+                    onReorder={setDraggableItem}
+                    className={style.compareColumn}
+                >
+                    {draggableItem.map((item) => (
+                        <Reorder.Item 
+                            value={item} 
+                            key={item._id}
+                            className={style.itemCard}
+                        >
+                            <NavLink to={`/ItemPage/${item._id}`}>
+                                <h3>{item.name}</h3>
+                            </NavLink>
+                            <p>Price: ${item.price}</p>
+                            <p>Category: {item.type}</p>
+                        </Reorder.Item>
+                    ))}
+                </Reorder.Group>
+            ) : (
+                <p className={style.compareNothing}>No items to compare</p>
+            )}
         </div>
     )
 }

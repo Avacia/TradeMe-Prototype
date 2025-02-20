@@ -1,12 +1,13 @@
 import { useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import style from './ItemPage.module.css'
-import { toast } from 'react-hot-toast'
+import { toast, Toaster } from 'react-hot-toast'
 
-export default function dataPage(){
+export default function ItemPage(){
     const {data, isLoading, error } = useQuery("data", getData)
     const { id } = useParams()
+    const navigate = useNavigate()
     const user = "Admin"
     const [currentPrice, setCurrentPrice] = useState(0)
     const [initialPrice, setInitialPrice] = useState(0)
@@ -32,25 +33,17 @@ export default function dataPage(){
         }
     }
 
+    function toggleDescription(){
+        setIsClicked(!isClicked)
+    }
+
     function CustomToast({t, onConfirm, onCancel}){
         return(
-            <div 
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap:'3vh',
-                    padding: '20px',
-                    border: '1px solid #ccc',
-                    borderRadius: '8px',
-                    backgroundColor: '#fff',
-                    minWidth: '250px',
-                }}
-            >
+            <div className={style.toastContainer}>
                 <p>Are you sure you want to place the bid?</p>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className={style.toastButtons}>
                     <button
-                        style={{ backgroundColor: '#4caf50', color: 'white', padding: '5px 10px', borderRadius: '5px' }}
+                        className={style.confirmBtn}
                         onClick={() => {
                             onConfirm()
                             toast.dismiss(t.id)
@@ -59,12 +52,12 @@ export default function dataPage(){
                         Confirm
                     </button>
                     <button
-                        style={{ backgroundColor: '#f44336', color: 'white', padding: '5px 10px', borderRadius: '5px' }}
+                        className={style.cancelBtn}
                         onClick={() => {
-                            onCancel();
-                            toast.dismiss(t.id); // Close the toast
+                            onCancel()
+                            toast.dismiss(t.id)
                         }}
-                        >
+                    >
                         Cancel
                     </button>
                 </div>
@@ -72,42 +65,42 @@ export default function dataPage(){
         )
     }
 
-    function handleClick(){
+    function placeBid(){
+        if (currentPrice <= data.price) {
+            toast.error("Bid must be higher than current price!")
+            return
+        }
+
         toast.custom((t) => (
             <CustomToast
                 t={t}
                 onConfirm={() => {
                     handleSubmit()
-                    toast.success("Bid is placed")
+                    toast.success("Bid placed successfully!")
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 1000)
                 }}
-                onCancel={() => toast.error("Canceled")}
+                onCancel={() => toast.error("Bid cancelled")}
             />
         ))
     }
 
-    function handleSubmit(){
-        const key = "none"
-        const reserveInfo = item.reserve_price
-        const checkKey = Object.keys(reserveInfo)
-        if(checkKey !== key && currentPrice === reserveInfo[checkKey]){
-            toast.error("You need to increase your Bid price")
+    function handleMinusAmount(){
+        if(currentPrice - 1 <= data.price){
+            toast.error("Bid amount cannot be lower than current price")
+            return
         }
-        else{
-            const placeBid = {user, currentPrice, id}
-            fetch('http://localhost:4000/updateItemBid', {
-                method: "POST",
-                headers: { "Content-Type" : "application/json" },
-                body: JSON.stringify(placeBid)
-            })
-            .then(() => {
-                console.log("Bid Updated")
-                console.log(JSON.stringify(placeBid))
-            })
-        }
+        setCurrentPrice(currentPrice - 1)
     }
 
-    function handleClick(){
-        setIsClicked(!isClicked)
+    function handleSubmit(){
+        const placeBid = {user, currentPrice, id}
+        fetch('http://localhost:4000/updateItemBid', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(placeBid)
+        })
     }
 
     async function getData(){
@@ -118,37 +111,45 @@ export default function dataPage(){
         return res.json()
     }
 
-    useEffect(() => {
-        setCurrentPrice(data.price)
-    }, [data])
+    if(isLoading) return <div className={style.loading}>Loading...</div>
+    if(error) return <div className={style.error}>Error loading item</div>
 
-    
-    if(isLoading){
-        return(<p>Loading ...</p>)
-    }
-
-    if(error){
-        return(<p>Error!!</p>)
-    }
-    console.log(data)
     return(
-        <div className={style.CardInfo}>
-            <h1>{data.name}</h1>
-            <p>{data._id}</p>
-            <p>Price: {data.price}</p>
-            <p>Type: {data.type}</p>
-            
-            <div className={style.info}>
-                <h5>Description:</h5>
-                <button onClick={handleClick}>Show More</button>
-                <p className={ isClicked ? style.open : style.close}>{data.description}</p>
-            </div>
-            
-            <div className={style.btnContainer}>
-                <button onClick={() => handleMinusAmount(data.initial_price)}>-</button>
-                {currentPrice}
-                <button onClick={() => handleAddAmount()}>+</button>
-                <button onClick={() => handleClick()}> Place Bid</button>
+        <div className={style.container}>
+            <Toaster position="top-center" />
+            <div className={style.itemCard}>
+                <div className={style.header}>
+                    <h1>{data.name}</h1>
+                    <span className={style.itemId}>#{data._id}</span>
+                </div>
+
+                <div className={style.mainInfo}>
+                    <div className={style.priceSection}>
+                        <h2>Current Price: ${data.price}</h2>
+                        <p className={style.type}>Category: {data.type}</p>
+                    </div>
+
+                    <div className={style.description}>
+                        <h3>Description</h3>
+                        <button onClick={toggleDescription} className={style.toggleBtn}>
+                            {isClicked ? 'Show Less' : 'Show More'}
+                        </button>
+                        <p className={isClicked ? style.open : style.close}>
+                            {data.description}
+                        </p>
+                    </div>
+                </div>
+
+                <div className={style.bidSection}>
+                    <div className={style.bidControls}>
+                        <button onClick={handleMinusAmount}>-</button>
+                        <span className={style.bidAmount}>${currentPrice}</span>
+                        <button onClick={handleAddAmount}>+</button>
+                    </div>
+                    <button className={style.placeBidBtn} onClick={placeBid}>
+                        Place Bid
+                    </button>
+                </div>
             </div>
         </div>
     )
